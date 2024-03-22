@@ -1,0 +1,42 @@
+version: '3.8'
+
+services: 
+  modules: 
+    image: javiers27/api_modules
+    ports: 
+      - '8080:8080'
+    expose:
+      - '8080'
+    networks:
+      - public
+    privileged: true
+
+  db:
+    image: mysql:latest
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: Proyecto1
+    volumes:
+      - data:/var/lib/mysql  
+    networks:
+      - public
+
+  react-app:
+    image: javiers27/frontend_sopes1_proyecto1
+    ports:
+      - '80:80'
+    expose:
+      - '80'
+    networks:
+      - public
+
+
+networks:
+  public:
+    external: true
+volumes:
+  data:
